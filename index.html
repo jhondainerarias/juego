@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BIBLIAHORCADO - Aventura Bíblica</title>
+    <title>BIBLIAHORCADO - Con Sonido</title>
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Tailwind CSS -->
@@ -111,6 +111,19 @@
             font-size: clamp(0.65rem, 1.8vw, 0.8rem);
             color: #d4a574;
             font-family: 'MedievalSharp', cursive;
+            transition: all 0.3s ease;
+        }
+
+        .pista-item.nueva {
+            animation: pistaPop 0.5s ease;
+            border-color: rgba(218, 165, 32, 0.5);
+            background: rgba(218, 165, 32, 0.2);
+        }
+
+        @keyframes pistaPop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .word-letter {
@@ -125,6 +138,19 @@
             text-shadow: 0 0 15px rgba(218, 165, 32, 0.15);
             min-width: clamp(25px, 6vw, 35px);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .word-letter.revelada {
+            animation: letterReveal 0.4s ease;
+            border-color: rgba(50, 205, 50, 0.6);
+            color: #7ddf7d;
+        }
+
+        @keyframes letterReveal {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.3) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
         }
 
         .letter-btn {
@@ -142,10 +168,21 @@
             text-shadow: 0 0 5px rgba(218, 165, 32, 0.1);
             touch-action: manipulation;
             user-select: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .letter-btn:active:not(:disabled) {
-            transform: scale(0.92);
+        .letter-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .letter-btn:active:not(:disabled)::after {
+            opacity: 1;
         }
 
         .letter-btn:disabled {
@@ -158,12 +195,25 @@
             background: rgba(50, 205, 50, 0.2);
             border-color: rgba(50, 205, 50, 0.5);
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.1);
+            animation: pulseCorrect 0.6s ease;
+        }
+
+        @keyframes pulseCorrect {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); background: rgba(50, 205, 50, 0.4); }
         }
 
         .letter-btn.wrong {
             background: rgba(178, 34, 34, 0.25);
             border-color: rgba(178, 34, 34, 0.5);
             box-shadow: 0 0 15px rgba(178, 34, 34, 0.1);
+            animation: shakeWrong 0.4s ease;
+        }
+
+        @keyframes shakeWrong {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .btn-primary {
@@ -179,10 +229,21 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(218, 165, 32, 0.2);
             touch-action: manipulation;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-primary:active {
-            transform: scale(0.95);
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:active::after {
+            opacity: 1;
         }
 
         .btn-secondary {
@@ -217,6 +278,20 @@
             background: rgba(218, 165, 32, 0.2);
             border: 1px solid rgba(218, 165, 32, 0.3);
             color: #d4a574;
+            transition: all 0.5s ease;
+        }
+
+        .level-badge.subir {
+            animation: levelUp 0.8s ease;
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(218, 165, 32, 0.4);
+        }
+
+        @keyframes levelUp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); box-shadow: 0 0 30px rgba(218, 165, 32, 0.3); }
+            100% { transform: scale(1); }
         }
 
         .versiculo-text {
@@ -228,6 +303,12 @@
             background: rgba(218, 165, 32, 0.05);
             border-radius: 12px;
             border-left: 3px solid rgba(218, 165, 32, 0.3);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .progress-bar {
@@ -242,14 +323,14 @@
             height: 100%;
             background: linear-gradient(90deg, #8b6914, #d4a574);
             border-radius: 4px;
-            transition: width 0.5s ease;
+            transition: width 0.8s ease;
         }
 
         .modal-overlay {
             position: fixed;
             inset: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: none;
@@ -307,6 +388,53 @@
             z-index: 3;
         }
 
+        .audio-btn {
+            background: rgba(218, 165, 32, 0.15);
+            border: 1.5px solid rgba(218, 165, 32, 0.2);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #d4a574;
+            touch-action: manipulation;
+        }
+
+        .audio-btn:hover {
+            background: rgba(218, 165, 32, 0.3);
+            border-color: #d4a574;
+        }
+
+        .audio-btn.muted {
+            opacity: 0.4;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 8, 6, 0.9);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 12px;
+            padding: 10px 20px;
+            color: #f5e6d3;
+            font-size: 0.9rem;
+            z-index: 200;
+            animation: slideUp 0.3s ease;
+            display: none;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
         @media (max-width: 480px) {
             .parchment-panel {
                 padding: 8px 10px;
@@ -322,6 +450,11 @@
                 font-size: 1.3rem;
                 margin: 0 1px;
                 padding: 0 4px;
+            }
+            .audio-btn {
+                width: 26px;
+                height: 26px;
+                font-size: 12px;
             }
         }
 
@@ -355,13 +488,16 @@
     <div class="ui-overlay inset-0 flex items-center justify-center">
         <div class="parchment-panel w-full max-w-2xl relative">
             
-            <!-- Header con nivel y progreso -->
+            <!-- Header con nivel y audio -->
             <div class="flex items-center justify-between mb-1">
                 <h1 class="bible-title">📜 BIBLIAHORCADO</h1>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1">
+                    <button class="audio-btn" id="audioToggle" onclick="toggleAudio()" title="Activar/Desactivar sonido">
+                        🔊
+                    </button>
                     <span class="level-badge" id="levelDisplay">NIVEL 1</span>
                     <button class="btn-secondary" onclick="toggleModoHistoria()" id="modoHistoriaBtn">
-                        📖 Historia
+                        📖
                     </button>
                 </div>
             </div>
@@ -437,13 +573,271 @@
                 <p>🏆 <strong>Niveles:</strong> Subes de nivel al completar personajes de dificultad creciente.</p>
                 <p>📜 <strong>Versículos:</strong> Al descubrir un personaje, verás un versículo relacionado.</p>
                 <p>📖 <strong>Modo Historia:</strong> Desbloquea la narrativa completa al avanzar.</p>
+                <p>🔊 <strong>Sonido:</strong> Activa/desactiva efectos de audio con el botón 🔊</p>
             </div>
             <button class="btn-primary w-full mt-3" onclick="cerrarAyuda()">Entendido</button>
         </div>
     </div>
-</div>
+
+    <!-- Toast notifications -->
+    <div class="toast" id="toast"></div>
+</div>        <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <footer class="fixed bottom-0 left-0 right-0 z-20 text-center py-1.5 px-4" 
+            style="background: rgba(10, 8, 6, 0.7); backdrop-filter: blur(4px); border-top: 1px solid rgba(218, 165, 32, 0.15);">
+        <p class="text-xs text-amber-400/40 font-light tracking-wider" 
+           style="font-family: 'MedievalSharp', cursive; text-shadow: 0 0 10px rgba(218, 165, 32, 0.05);">
+            ✦ Jhon Dainer Arias ✦ 2026
+        </p>
+    </footer>
+
+</body>
+</html>
 
 <script>
+    // ============================================
+    // 0. SISTEMA DE AUDIO
+    // ============================================
+    
+    class AudioManager {
+        constructor() {
+            this.ctx = null;
+            this.enabled = true;
+            this.initialized = false;
+            this.sounds = {};
+        }
+
+        init() {
+            if (this.initialized) return;
+            try {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.initialized = true;
+                this.cargarSonidos();
+            } catch (e) {
+                console.warn('Web Audio API no soportada');
+                this.enabled = false;
+            }
+        }
+
+        cargarSonidos() {
+            // Sonidos sintéticos usando osciladores
+            this.sounds = {
+                // Sonido de tecla correcta
+                correct: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1320, this.ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.2);
+                },
+
+                // Sonido de tecla incorrecta
+                wrong: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.3);
+                },
+
+                // Victoria
+                win: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const notas = [523, 659, 784, 1047];
+                    notas.forEach((freq, i) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.frequency.setValueAtTime(freq, this.ctx.currentTime + i * 0.12);
+                        gain.gain.setValueAtTime(0.25, this.ctx.currentTime + i * 0.12);
+                        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + i * 0.12 + 0.2);
+                        osc.start(this.ctx.currentTime + i * 0.12);
+                        osc.stop(this.ctx.currentTime + i * 0.12 + 0.2);
+                    });
+                },
+
+                // Derrota
+                lose: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.8);
+                    gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.8);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.8);
+                },
+
+                // Nueva pista
+                pista: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.12);
+                },
+
+                // Subir nivel
+                levelUp: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const melodia = [523, 587, 659, 784, 880, 1047];
+                    melodia.forEach((freq, i) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(freq, this.ctx.currentTime + i * 0.08);
+                        gain.gain.setValueAtTime(0.15, this.ctx.currentTime + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + i * 0.08 + 0.1);
+                        osc.start(this.ctx.currentTime + i * 0.08);
+                        osc.stop(this.ctx.currentTime + i * 0.08 + 0.1);
+                    });
+                },
+
+                // Click de botón
+                click: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.05);
+                },
+
+                // Error grave (casi perder)
+                danger: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(200, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(180, this.ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 0.2);
+                },
+
+                // Sonido de fondo (ambiente)
+                ambiente: () => {
+                    if (!this.enabled || !this.ctx) return;
+                    // Sonido de viento/ambiente simple
+                    const bufferSize = this.ctx.sampleRate * 0.5;
+                    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * Math.sin(i / bufferSize * Math.PI * 2) * 0.05;
+                    }
+                    const source = this.ctx.createBufferSource();
+                    const gain = this.ctx.createGain();
+                    source.buffer = buffer;
+                    source.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+                    source.start(this.ctx.currentTime);
+                }
+            };
+        }
+
+        play(soundName) {
+            if (!this.enabled || !this.ctx) return;
+            // Inicializar si es necesario
+            if (this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+            if (this.sounds[soundName]) {
+                this.sounds[soundName]();
+            }
+        }
+
+        toggle() {
+            this.enabled = !this.enabled;
+            if (this.enabled && this.ctx && this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+            return this.enabled;
+        }
+
+        setEnabled(value) {
+            this.enabled = value;
+            if (value && this.ctx && this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+        }
+    }
+
+    // Crear instancia de audio
+    const audioManager = new AudioManager();
+
+    // Inicializar audio al primer toque/clic
+    function initAudioOnInteraction() {
+        audioManager.init();
+        document.removeEventListener('click', initAudioOnInteraction);
+        document.removeEventListener('touchstart', initAudioOnInteraction);
+    }
+
+    document.addEventListener('click', initAudioOnInteraction);
+    document.addEventListener('touchstart', initAudioOnInteraction);
+
+    function toggleAudio() {
+        const enabled = audioManager.toggle();
+        const btn = document.getElementById('audioToggle');
+        if (enabled) {
+            btn.textContent = '🔊';
+            btn.classList.remove('muted');
+            mostrarToast('🔊 Sonido activado');
+        } else {
+            btn.textContent = '🔇';
+            btn.classList.add('muted');
+            mostrarToast('🔇 Sonido desactivado');
+        }
+    }
+
+    function mostrarToast(mensaje) {
+        const toast = document.getElementById('toast');
+        toast.textContent = mensaje;
+        toast.classList.add('show');
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
     // ============================================
     // 1. BASE DE DATOS BÍBLICA (50+ PERSONAJES)
     // ============================================
@@ -472,7 +866,7 @@
           versiculo: "Tú eres Pedro, y sobre esta roca edificaré mi iglesia" },
         
         // NIVEL 2: Personajes medianamente conocidos
-        { nombre: "DANIEL", pistas: ["Sueños", "Horno", "Amigos", "Leones", "Babilonia", "Visiones"], nivel: 2,
+        { nombre: "DANIEL", pistas: ["Sueños", "Horno", "Amigos", "Leones", "Babilonia"], nivel: 2,
           versiculo: "Daniel fue llevado a Babilonia, y Dios le dio sabiduría" },
         { nombre: "JOB", pistas: ["Pruebas", "Paciencia", "Amigos", "Sufrimiento", "Restauración"], nivel: 2,
           versiculo: "Job era perfecto y recto, temeroso de Dios y apartado del mal" },
@@ -480,108 +874,82 @@
           versiculo: "Creyó Abraham a Dios, y le fue contado por justicia" },
         { nombre: "JACOB", pistas: ["Escalera", "Ángel", "Israel", "Lucha", "Bendición"], nivel: 2,
           versiculo: "Tu nombre no será más Jacob, sino Israel" },
-        { nombre: "JOSE", pistas: ["Sueños", "Egipto", "Hermanos", "Cárcel", "Faraón", "Perdón"], nivel: 2,
+        { nombre: "JOSE", pistas: ["Sueños", "Egipto", "Hermanos", "Cárcel", "Faraón"], nivel: 2,
           versiculo: "Vosotros pensasteis mal contra mí, pero Dios lo encaminó a bien" },
         { nombre: "SAMUEL", pistas: ["Templo", "Profeta", "Rey", "Ungir", "Sacerdote"], nivel: 2,
           versiculo: "Habló Jehová a Samuel, y Samuel lo entendió" },
-        { nombre: "GEDEON", pistas: ["Vellón", "Madianitas", "Trompeta", "Guerrero", "Juez"], nivel: 2,
+        { nombre: "GEDEON", pistas: ["Vellón", "Madianitas", "Trompeta", "Guerrero"], nivel: 2,
           versiculo: "Jehová te dice: Ve en tu valentía, y librarás a Israel" },
-        { nombre: "NEHEMIAS", pistas: ["Muros", "Jerusalén", "Copa", "Reconstruir", "Oración"], nivel: 2,
+        { nombre: "NEHEMIAS", pistas: ["Muros", "Jerusalén", "Copa", "Reconstruir"], nivel: 2,
           versiculo: "Edifiquemos los muros de Jerusalén, y no estemos más en oprobio" },
-        { nombre: "ELISEO", pistas: ["Manto", "Milagros", "Aceite", "Naamán", "Profeta"], nivel: 2,
+        { nombre: "ELISEO", pistas: ["Manto", "Milagros", "Aceite", "Naamán"], nivel: 2,
           versiculo: "Eliseo pidió una doble porción del espíritu de Elías" },
-        { nombre: "JEREMIAS", pistas: ["Lágrimas", "Profeta", "Jerusalén", "Caldero", "Palabra"], nivel: 2,
+        { nombre: "JEREMIAS", pistas: ["Lágrimas", "Profeta", "Jerusalén", "Caldero"], nivel: 2,
           versiculo: "Antes que te formase en el vientre te conocí" },
         
         // NIVEL 3: Personajes menos conocidos (Difíciles)
-        { nombre: "ABIGAIL", pistas: ["Sabiduría", "Nabal", "David", "Reina", "Carmelo"], nivel: 3,
+        { nombre: "ABIGAIL", pistas: ["Sabiduría", "Nabal", "David", "Reina"], nivel: 3,
           versiculo: "Abigail era de buen entendimiento y hermosa" },
-        { nombre: "NAAMAN", pistas: ["Lealtad", "Río Jordán", "Muerte", "Criada", "Lepra"], nivel: 3,
+        { nombre: "NAAMAN", pistas: ["Lealtad", "Río Jordán", "Criada", "Lepra"], nivel: 3,
           versiculo: "Ve, y lávate siete veces en el Jordán" },
-        { nombre: "JOSIAS", pistas: ["Rey", "Libro", "Pascua", "Reforma", "Joven"], nivel: 3,
+        { nombre: "JOSIAS", pistas: ["Rey", "Libro", "Pascua", "Reforma"], nivel: 3,
           versiculo: "Josías hizo lo recto ante los ojos de Jehová" },
-        { nombre: "ESTER", pistas: ["Reina", "Persia", "Banquete", "Mardoqueo", "Purim"], nivel: 3,
-          versiculo: "¿Quién sabe si para esta hora has llegado al reino?" },
-        { nombre: "ANANIAS", pistas: ["Mentira", "Ofrenda", "Muerte", "Safira", "Pedro"], nivel: 3,
+        { nombre: "ANANIAS", pistas: ["Mentira", "Ofrenda", "Muerte", "Safira"], nivel: 3,
           versiculo: "Ananías mintió al Espíritu Santo" },
-        { nombre: "FELIPE", pistas: ["Etiope", "Coche", "Agua", "Bautismo", "Diácono"], nivel: 3,
+        { nombre: "FELIPE", pistas: ["Etiope", "Coche", "Agua", "Bautismo"], nivel: 3,
           versiculo: "Felipe anunció a Jesús al eunuco etíope" },
-        { nombre: "TIMOTEO", pistas: ["Joven", "Discípulo", "Cartas", "Pablo", "Fe"], nivel: 3,
+        { nombre: "TIMOTEO", pistas: ["Joven", "Discípulo", "Cartas", "Pablo"], nivel: 3,
           versiculo: "Timoteo era discípulo y bien hablado" },
-        { nombre: "SILAS", pistas: ["Misión", "Cárcel", "Cantos", "Terremoto", "Pablo"], nivel: 3,
+        { nombre: "SILAS", pistas: ["Misión", "Cárcel", "Cantos", "Terremoto"], nivel: 3,
           versiculo: "Silas acompañó a Pablo en su misión" },
-        { nombre: "MARCOS", pistas: ["Evangelio", "Juan", "Ciprés", "Bernabé", "Disputa"], nivel: 3,
+        { nombre: "MARCOS", pistas: ["Evangelio", "Juan", "Bernabé", "Disputa"], nivel: 3,
           versiculo: "Marcos era útil para el ministerio" },
-        { nombre: "LOIS", pistas: ["Abuela", "Fe", "Instrucción", "Timoteo", "Eunice"], nivel: 3,
+        { nombre: "LOIS", pistas: ["Abuela", "Fe", "Instrucción", "Eunice"], nivel: 3,
           versiculo: "La fe no fingida que hay en ti, la cual habitó en tu abuela Lois" },
-        { nombre: "EUNICE", pistas: ["Madre", "Fe", "Instrucción", "Timoteo", "Judía"], nivel: 3,
+        { nombre: "EUNICE", pistas: ["Madre", "Fe", "Instrucción", "Timoteo"], nivel: 3,
           versiculo: "Te recuerdo la fe no fingida que hay en ti" },
-        { nombre: "ONÉSIMO", pistas: ["Esclavo", "Huido", "Perdón", "Filemón", "Pablo"], nivel: 3,
+        { nombre: "ONÉSIMO", pistas: ["Esclavo", "Huido", "Perdón", "Filemón"], nivel: 3,
           versiculo: "Recíbele como a mí mismo" },
-        { nombre: "FÍLETE", pistas: ["Mentira", "Himeneo", "Pablo", "Resurrección", "Fe"], nivel: 3,
+        { nombre: "FÍLETE", pistas: ["Mentira", "Himeneo", "Pablo", "Resurrección"], nivel: 3,
           versiculo: "Himeneo y Filete se desviaron de la verdad" },
-        { nombre: "HIMENEO", pistas: ["Mentira", "Filete", "Pablo", "Resurrección", "Fe"], nivel: 3,
+        { nombre: "HIMENEO", pistas: ["Mentira", "Filete", "Pablo", "Resurrección"], nivel: 3,
           versiculo: "Himeneo y Filete se desviaron de la verdad" },
-        { nombre: "JOSÉ DE ARIMATEA", pistas: ["Sepulcro", "Nicodemo", "Jesús", "Crucifixión", "Senador"], nivel: 3,
+        { nombre: "JOSÉ DE ARIMATEA", pistas: ["Sepulcro", "Nicodemo", "Jesús", "Crucifixión"], nivel: 3,
           versiculo: "José de Arimatea pidió el cuerpo de Jesús" },
-        { nombre: "NICODEMO", pistas: ["Noche", "Renacer", "Fariseo", "Jesús", "Sepulcro"], nivel: 3,
+        { nombre: "NICODEMO", pistas: ["Noche", "Renacer", "Fariseo", "Jesús"], nivel: 3,
           versiculo: "De cierto te digo, que el que no nace de nuevo no puede ver el reino de Dios" },
-        { nombre: "ZACARÍAS", pistas: ["Sacerdote", "Juan", "Bautista", "Isabel", "Mudo"], nivel: 3,
+        { nombre: "ZACARÍAS", pistas: ["Sacerdote", "Juan", "Bautista", "Isabel"], nivel: 3,
           versiculo: "Zacarías fue lleno de Espíritu Santo" },
-        { nombre: "ISABEL", pistas: ["Juan", "Bautista", "Zacarías", "Madre", "Visitación"], nivel: 3,
+        { nombre: "ISABEL", pistas: ["Juan", "Bautista", "Zacarías", "Madre"], nivel: 3,
           versiculo: "Isabel concibió a Juan en su vejez" },
-        { nombre: "ANNA", pistas: ["Profetisa", "Templo", "Ayuno", "Oración", "Jesús"], nivel: 3,
+        { nombre: "ANNA", pistas: ["Profetisa", "Templo", "Ayuno", "Oración"], nivel: 3,
           versiculo: "Ana profetizó acerca de Jesús en el templo" },
-        { nombre: "SIMEÓN", pistas: ["Templo", "Profecía", "Jesús", "Esperanza", "Justo"], nivel: 3,
+        { nombre: "SIMEÓN", pistas: ["Templo", "Profecía", "Jesús", "Esperanza"], nivel: 3,
           versiculo: "Simeón tomó a Jesús en sus brazos y bendijo a Dios" },
-        { nombre: "CLOPAS", pistas: ["Emaús", "Camino", "Jesús", "Resurrección", "Discípulo"], nivel: 3,
-          versiculo: "Dos de ellos iban a Emaús" },
-        { nombre: "MATEO", pistas: ["Recaudador", "Impuestos", "Leví", "Evangelio", "Discípulo"], nivel: 3,
+        { nombre: "MATEO", pistas: ["Recaudador", "Impuestos", "Leví", "Evangelio"], nivel: 3,
           versiculo: "Mateo dejó todo y siguió a Jesús" },
-        { nombre: "JUAN BAUTISTA", pistas: ["Desierto", "Langosta", "Bautismo", "Cordero", "Precursor"], nivel: 3,
+        { nombre: "JUAN BAUTISTA", pistas: ["Desierto", "Langosta", "Bautismo", "Cordero"], nivel: 3,
           versiculo: "He aquí el Cordero de Dios que quita el pecado del mundo" },
-        { nombre: "ESTEBAN", pistas: ["Mártir", "Piedras", "Saulo", "Fe", "Diácono"], nivel: 3,
+        { nombre: "ESTEBAN", pistas: ["Mártir", "Piedras", "Saulo", "Fe"], nivel: 3,
           versiculo: "Señor, no les tomes en cuenta este pecado" },
-        { nombre: "FELIPE EL DIÁCONO", pistas: ["Etiope", "Coche", "Agua", "Bautismo", "Diácono"], nivel: 3,
-          versiculo: "Felipe anunció a Jesús al eunuco etíope" },
-        { nombre: "BARNABÉ", pistas: ["Consolador", "Pablo", "Misión", "Bernabé", "Chipre"], nivel: 3,
+        { nombre: "BARNABÉ", pistas: ["Consolador", "Pablo", "Misión", "Chipre"], nivel: 3,
           versiculo: "Bernabé era varón bueno y lleno del Espíritu Santo" },
-        { nombre: "APOLOS", pistas: ["Elocuente", "Alejandría", "Escrituras", "Priscila", "Aquila"], nivel: 3,
+        { nombre: "APOLOS", pistas: ["Elocuente", "Alejandría", "Escrituras", "Priscila"], nivel: 3,
           versiculo: "Apolo era elocuente y poderoso en las Escrituras" },
-        { nombre: "PRISCILA", pistas: ["Misión", "Pablo", "Apolo", "Aquila", "Instrucción"], nivel: 3,
+        { nombre: "PRISCILA", pistas: ["Misión", "Pablo", "Apolo", "Aquila"], nivel: 3,
           versiculo: "Priscila y Aquila instruyeron a Apolo" },
-        { nombre: "AQUILA", pistas: ["Misión", "Pablo", "Apolo", "Priscila", "Instrucción"], nivel: 3,
+        { nombre: "AQUILA", pistas: ["Misión", "Pablo", "Apolo", "Priscila"], nivel: 3,
           versiculo: "Priscila y Aquila instruyeron a Apolo" },
-        { nombre: "TITO", pistas: ["Creta", "Pablo", "Carta", "Anciano", "Fe"], nivel: 3,
+        { nombre: "TITO", pistas: ["Creta", "Pablo", "Carta", "Anciano"], nivel: 3,
           versiculo: "A Tito, verdadero hijo en la común fe" },
-        { nombre: "DORCAS", pistas: ["Tabita", "Resurrección", "Obras", "Pedro", "Manto"], nivel: 3,
+        { nombre: "DORCAS", pistas: ["Tabita", "Resurrección", "Obras", "Pedro"], nivel: 3,
           versiculo: "Dorcas estaba llena de buenas obras" },
-        { nombre: "LIDIA", pistas: ["Púrpura", "Tiatira", "Bautismo", "Macedonia", "Escucha"], nivel: 3,
+        { nombre: "LIDIA", pistas: ["Púrpura", "Tiatira", "Bautismo", "Macedonia"], nivel: 3,
           versiculo: "El Señor abrió el corazón de Lidia" },
-        { nombre: "CLAUDIO LISIAS", pistas: ["Tribuno", "Pablo", "Carta", "Félix", "Custodia"], nivel: 3,
+        { nombre: "CLAUDIO LISIAS", pistas: ["Tribuno", "Pablo", "Carta", "Félix"], nivel: 3,
           versiculo: "Claudio Lisias envió a Pablo a Félix" },
-        { nombre: "FÉLIX", pistas: ["Gobernador", "Pablo", "Cesarea", "Drusila", "Festival"], nivel: 3,
-          versiculo: "Félix escuchó a Pablo acerca de la fe" },
-        { nombre: "FESTO", pistas: ["Gobernador", "Pablo", "Cesarea", "Agripa", "Apelación"], nivel: 3,
-          versiculo: "Pablo apeló a César ante Festo" },
-        { nombre: "AGRIPA", pistas: ["Rey", "Pablo", "Cesarea", "Festival", "Festus"], nivel: 3,
-          versiculo: "Agripa dijo: Poco faltó para que me hicieras cristiano" },
-        { nombre: "BERNICE", pistas: ["Agripa", "Cesarea", "Pablo", "Rey", "Relato"], nivel: 3,
-          versiculo: "Bernice acompañó a Agripa ante Pablo" },
-        { nombre: "DIONISIO", pistas: ["Areópago", "Pablo", "Atenas", "María", "Creencia"], nivel: 3,
-          versiculo: "Dionisio el areopagita creyó" },
-        { nombre: "HERMAS", pistas: ["Pastor", "Carta", "Tradición", "Apocalipsis", "Hermas"], nivel: 3,
-          versiculo: "El Pastor de Hermas es un libro apócrifo" },
-        { nombre: "ALFEO", pistas: ["Padre", "Santiago", "Discípulo", "Leví", "Mateo"], nivel: 3,
-          versiculo: "Santiago y Leví eran hijos de Alfeo" },
-        { nombre: "JOSÉ EL JUSTO", pistas: ["Barnabé", "Clima", "Chipre", "Levita", "Sustitución"], nivel: 3,
-          versiculo: "José el justo fue llamado Barsabás" },
-        { nombre: "SIMEÓN EL NIGER", pistas: ["Antioquía", "Profeta", "Doctor", "Simeón", "Niger"], nivel: 3,
-          versiculo: "En la iglesia de Antioquía había profetas y maestros" },
-        { nombre: "MANAÉN", pistas: ["Antioquía", "Profeta", "Doctor", "Manaén", "Herodes"], nivel: 3,
-          versiculo: "Manaén había sido criado con Herodes el tetrarca" },
-        { nombre: "SAULO DE TARSO", pistas: ["Pablo", "Tarso", "Camino", "Conversión", "Ananías"], nivel: 3,
-          versiculo: "Saulo, que también es Pablo, fue lleno del Espíritu Santo" }
+        { nombre: "FÉLIX", pistas: ["Gobernador", "Pablo", "Cesarea", "Drusila"], nivel: 3,
+          versiculo: "Félix escuchó a Pablo acerca de la fe" }
     ];
 
     // ============================================
@@ -603,7 +971,7 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    // Luces optimizadas
+    // Luces
     const ambientLight = new THREE.AmbientLight(0x332211, 0.3);
     scene.add(ambientLight);
     
@@ -616,7 +984,7 @@
     divineLight.position.set(0, 6, 0);
     scene.add(divineLight);
 
-    // Suelo simplificado
+    // Suelo
     const floorMaterial = new THREE.MeshStandardMaterial({
         color: 0x2a1f14,
         roughness: 0.9,
@@ -637,7 +1005,7 @@
     scene.add(gridHelper);
 
     // ============================================
-    // 3. AHORCADO 3D (SIMPLIFICADO)
+    // 3. AHORCADO 3D
     // ============================================
     
     const hangmanGroup = new THREE.Group();
@@ -730,7 +1098,7 @@
     hangmanGroup.add(legRight);
     bodyParts.push(legRight);
     
-    // Partículas (simplificadas)
+    // Partículas
     const particleCount = 80;
     const particleGeo = new THREE.BufferGeometry();
     const particlePos = new Float32Array(particleCount * 3);
@@ -750,7 +1118,7 @@
     scene.add(particles);
 
     // ============================================
-    // 4. LÓGICA DEL JUEGO CON NIVELES
+    // 4. LÓGICA DEL JUEGO CON NIVELES Y SONIDO
     // ============================================
     
     const MAX_ATTEMPTS = 9;
@@ -763,9 +1131,9 @@
     let nivelActual = 1;
     let puntuacion = 0;
     let personajesCompletados = [];
-    let personajesNivel = {};
     let modoHistoriaActivo = false;
     let historiaDesbloqueada = [];
+    let primeraInteraccion = true;
     
     // Referencias UI
     const wordDisplay = document.getElementById('wordDisplay');
@@ -781,26 +1149,30 @@
     const versiculoTexto = document.getElementById('versiculoTexto');
     
     function initGame() {
-        // Seleccionar personaje según nivel
+        // Sonido de click al reiniciar
+        audioManager.play('click');
+        
         const disponibles = BIBLICAL_CHARACTERS.filter(c => 
             c.nivel === nivelActual && !personajesCompletados.includes(c.nombre)
         );
         
         if (disponibles.length === 0) {
-            // Subir de nivel
             if (nivelActual < 3) {
                 nivelActual++;
                 levelDisplay.textContent = `NIVEL ${nivelActual}`;
-                // Resetear personajes completados del nivel
+                levelDisplay.classList.add('subir');
+                setTimeout(() => levelDisplay.classList.remove('subir'), 800);
+                audioManager.play('levelUp');
+                mostrarToast(`🎉 ¡Subiste al Nivel ${nivelActual}!`);
                 personajesCompletados = personajesCompletados.filter(c => 
                     BIBLICAL_CHARACTERS.find(p => p.nombre === c && p.nivel === nivelActual)
                 );
                 initGame();
                 return;
             } else {
-                // ¡Juego completado!
                 message.textContent = '🎉 ¡HAS COMPLETADO TODOS LOS PERSONAJES! 🎉';
                 message.className = 'text-center text-sm md:text-lg font-bold h-8 mb-1 text-green-400 pista-text';
+                audioManager.play('win');
                 return;
             }
         }
@@ -817,7 +1189,6 @@
         correctWordDisplay.classList.add('hidden');
         versiculoContainer.classList.add('hidden');
         
-        // Mostrar pistas iniciales (2-3 según nivel)
         const numPistas = nivelActual === 1 ? 2 : (nivelActual === 2 ? 2 : 3);
         const pistasMezcladas = [...currentCharacter.pistas].sort(() => Math.random() - 0.5);
         pistasMostradas = pistasMezcladas.slice(0, numPistas);
@@ -828,20 +1199,20 @@
         updateHangman3D();
         updateProgress();
         
-        // Animación cámara suave
         gsapToCamera({ x: 6, y: 4, z: 10 });
     }
     
     function renderPistas() {
         pistasContainer.innerHTML = pistasMostradas.map(pista => 
             `<span class="pista-item">✦ ${pista}</span>`
-        ).join(' ');
+        ).join('');
     }
     
     function updateDisplay() {
-        wordDisplay.innerHTML = wordState.map(letter => 
-            `<span class="word-letter">${letter === '_' ? '_' : letter}</span>`
-        ).join('');
+        wordDisplay.innerHTML = wordState.map((letter, index) => {
+            const classes = 'word-letter' + (letter !== '_' ? ' revelada' : '');
+            return `<span class="${classes}" data-index="${index}">${letter === '_' ? '_' : letter}</span>`;
+        }).join('');
         attemptsLeft.textContent = MAX_ATTEMPTS - wrongGuesses;
     }
     
@@ -852,6 +1223,7 @@
             const button = document.createElement('button');
             button.textContent = letter;
             button.className = 'letter-btn';
+            button.dataset.letter = letter;
             button.onclick = () => handleGuess(letter, button);
             keyboard.appendChild(button);
         });
@@ -860,6 +1232,14 @@
     function handleGuess(letter, button) {
         if (!gameActive || guessedLetters.includes(letter)) return;
         
+        // Inicializar audio en primera interacción
+        if (primeraInteraccion) {
+            audioManager.init();
+            audioManager.setEnabled(true);
+            primeraInteraccion = false;
+            document.getElementById('audioToggle').textContent = '🔊';
+        }
+        
         guessedLetters.push(letter);
         button.disabled = true;
         
@@ -867,6 +1247,7 @@
         
         if (isCorrect) {
             button.classList.add('correct');
+            audioManager.play('correct');
             message.textContent = '✅ ¡Excelente!';
             
             for (let i = 0; i < currentCharacter.nombre.length; i++) {
@@ -874,6 +1255,8 @@
                     wordState[i] = letter;
                 }
             }
+            
+            updateDisplay();
             
             if (!wordState.includes('_')) {
                 endGame(true);
@@ -883,6 +1266,13 @@
         } else {
             button.classList.add('wrong');
             wrongGuesses++;
+            audioManager.play('wrong');
+            
+            // Sonido de peligro si quedan pocos intentos
+            if (MAX_ATTEMPTS - wrongGuesses <= 2) {
+                audioManager.play('danger');
+            }
+            
             message.textContent = '❌ ¡Incorrecto!';
             shakeCamera();
             
@@ -901,6 +1291,15 @@
             const nuevaPista = pistasRestantes[Math.floor(Math.random() * pistasRestantes.length)];
             pistasMostradas.push(nuevaPista);
             renderPistas();
+            audioManager.play('pista');
+            // Resaltar nueva pista
+            const items = pistasContainer.querySelectorAll('.pista-item');
+            if (items.length > 0) {
+                items[items.length - 1].classList.add('nueva');
+                setTimeout(() => {
+                    items[items.length - 1].classList.remove('nueva');
+                }, 500);
+            }
         }
     }
     
@@ -915,7 +1314,7 @@
         const completadosNivel = personajesCompletados.filter(c => 
             BIBLICAL_CHARACTERS.find(p => p.nombre === c && p.nivel === nivelActual)
         ).length;
-        const progress = (completadosNivel / totalNivel) * 100;
+        const progress = totalNivel > 0 ? (completadosNivel / totalNivel) * 100 : 0;
         progressBar.style.width = `${Math.min(progress, 100)}%`;
         puntuacionDisplay.textContent = `⭐ ${puntuacion} pts`;
     }
@@ -925,34 +1324,38 @@
         document.querySelectorAll('.letter-btn').forEach(btn => btn.disabled = true);
         
         if (win) {
-            puntuacion += Math.max(10 - wrongGuesses, 1) * nivelActual;
+            const puntos = Math.max(10 - wrongGuesses, 1) * nivelActual;
+            puntuacion += puntos;
             personajesCompletados.push(currentCharacter.nombre);
             
-            message.textContent = `🎉 ¡${currentCharacter.nombre}! 🎉`;
+            audioManager.play('win');
+            
+            message.textContent = `🎉 ¡${currentCharacter.nombre}! (+${puntos} pts)`;
             message.className = 'text-center text-sm md:text-lg font-bold h-8 mb-1 text-green-400 pista-text';
             
-            // Mostrar versículo
             versiculoTexto.textContent = `"${currentCharacter.versiculo}"`;
             versiculoContainer.classList.remove('hidden');
             
-            // Mostrar todas las pistas
             pistasMostradas = [...currentCharacter.pistas];
             renderPistas();
             
-            // Efecto de victoria
             createWinEffect();
             updateProgress();
-            
-            // Desbloquear historia
             desbloquearHistoria(currentCharacter.nombre);
             
-            // Auto-siguiente después de 3s
             setTimeout(() => {
-                if (personajesCompletados.length < BIBLICAL_CHARACTERS.filter(c => c.nivel === nivelActual).length) {
+                const pendientesNivel = BIBLICAL_CHARACTERS.filter(c => 
+                    c.nivel === nivelActual && !personajesCompletados.includes(c.nombre)
+                );
+                if (pendientesNivel.length > 0) {
                     initGame();
                 } else if (nivelActual < 3) {
                     nivelActual++;
                     levelDisplay.textContent = `NIVEL ${nivelActual}`;
+                    levelDisplay.classList.add('subir');
+                    setTimeout(() => levelDisplay.classList.remove('subir'), 800);
+                    audioManager.play('levelUp');
+                    mostrarToast(`🎉 ¡Subiste al Nivel ${nivelActual}!`);
                     personajesCompletados = personajesCompletados.filter(c => 
                         BIBLICAL_CHARACTERS.find(p => p.nombre === c && p.nivel === nivelActual)
                     );
@@ -960,10 +1363,13 @@
                 } else {
                     message.textContent = '🏆 ¡HAS COMPLETADO TODO EL JUEGO! 🏆';
                     message.className = 'text-center text-sm md:text-lg font-bold h-8 mb-1 text-amber-400 pista-text';
+                    audioManager.play('win');
                 }
-            }, 2500);
+            }, 3000);
             
         } else {
+            audioManager.play('lose');
+            
             message.textContent = `💀 ¡${currentCharacter.nombre} ha caído!`;
             message.className = 'text-center text-sm md:text-lg font-bold h-8 mb-1 text-red-400 pista-text';
             
@@ -984,6 +1390,7 @@
     function toggleModoHistoria() {
         modoHistoriaActivo = !modoHistoriaActivo;
         const modal = document.getElementById('historiaModal');
+        audioManager.play('click');
         
         if (modoHistoriaActivo) {
             modal.classList.add('show');
@@ -1011,7 +1418,6 @@
             </div>
         `;
         
-        // Mostrar personajes desbloqueados en orden
         const personajesOrdenados = [...BIBLICAL_CHARACTERS].sort((a, b) => a.nivel - b.nivel);
         let nivelActualHistoria = 1;
         html += `<div class="space-y-1">`;
@@ -1149,10 +1555,12 @@
     // ============================================
     
     function mostrarAyuda() {
+        audioManager.play('click');
         document.getElementById('ayudaModal').classList.add('show');
     }
     
     function cerrarAyuda() {
+        audioManager.play('click');
         document.getElementById('ayudaModal').classList.remove('show');
     }
     
@@ -1162,6 +1570,7 @@
             if (e.target === modal) {
                 modal.classList.remove('show');
                 document.getElementById('modoHistoriaBtn').classList.remove('active');
+                audioManager.play('click');
             }
         });
     });
@@ -1208,15 +1617,19 @@
     // 10. INICIO
     // ============================================
     
-    // Inicializar primer nivel
     nivelActual = 1;
     levelDisplay.textContent = 'NIVEL 1';
     initGame();
     
-    console.log('📜 BIBLIAHORCADO - Aventura Bíblica');
+    // Mostrar mensaje de sonido
+    setTimeout(() => {
+        mostrarToast('🔊 Toca cualquier tecla para activar el sonido');
+    }, 1000);
+    
+    console.log('📜 BIBLIAHORCADO - Aventura Bíblica con Sonido');
     console.log(`👥 ${BIBLICAL_CHARACTERS.length} personajes disponibles`);
     console.log('🏆 3 niveles de dificultad');
-    console.log('📖 Modo Historia para desbloquear');
+    console.log('🔊 Sistema de audio activo');
 </script>
 
 </body>
