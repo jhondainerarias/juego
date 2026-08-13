@@ -34,7 +34,6 @@
             background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0615 70%);
         }
 
-        /* Fondo con efecto de lujo */
         .fondo-lujo {
             position: absolute;
             inset: 0;
@@ -45,7 +44,6 @@
                 radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
         }
 
-        /* Partículas doradas (CSS) */
         .particulas {
             position: absolute;
             inset: 0;
@@ -110,7 +108,6 @@
             border: 1px solid rgba(255, 215, 0, 0.1);
         }
 
-        /* COMODINES */
         .comodines-container {
             display: flex;
             justify-content: center;
@@ -162,7 +159,6 @@
             font-size: clamp(0.8rem, 2.2vw, 1rem);
         }
 
-        /* PREGUNTA */
         .pregunta-container {
             flex: 1;
             display: flex;
@@ -191,7 +187,6 @@
             justify-content: center;
         }
 
-        /* OPCIONES */
         .opciones-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -275,7 +270,6 @@
             75% { transform: translateX(8px); }
         }
 
-        /* NIVELES DE PREMIO */
         .premios-lista {
             display: none;
             position: absolute;
@@ -328,7 +322,6 @@
             font-size: clamp(0.6rem, 1.6vw, 0.8rem);
         }
 
-        /* Botón mostrar premios */
         .btn-premios {
             position: absolute;
             right: 8px;
@@ -359,7 +352,6 @@
             color: #ffd700;
         }
 
-        /* MODAL FINAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -465,7 +457,6 @@
             margin-right: 6px;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -490,7 +481,6 @@
             display: block;
         }
 
-        /* Controles de audio */
         .audio-controls {
             position: absolute;
             bottom: 10px;
@@ -532,6 +522,189 @@
             color: #ffd700;
         }
 
+        /* ============================================ */
+        /* FOOTER PREMIUM - ESTILO MILLONARIO */
+        /* ============================================ */
+        .footer-premium {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 25;
+            background: linear-gradient(135deg, 
+                rgba(10, 6, 21, 0.92) 0%,
+                rgba(26, 10, 46, 0.92) 30%,
+                rgba(10, 6, 21, 0.92) 70%,
+                rgba(26, 10, 46, 0.92) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 2px solid rgba(255, 215, 0, 0.15);
+            padding: 8px 16px 6px 16px;
+            box-shadow: 
+                0 -10px 40px rgba(0, 0, 0, 0.5),
+                0 -2px 20px rgba(255, 215, 0, 0.03);
+        }
+
+        .footer-contenido {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .footer-nombre {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(0.75rem, 2.8vw, 1rem);
+            background: linear-gradient(135deg, #ffd700, #ff6b6b, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: footerGradiente 3s ease-in-out infinite;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.1));
+            letter-spacing: 1px;
+        }
+
+        @keyframes footerGradiente {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .footer-separador {
+            color: rgba(255, 215, 0, 0.2);
+            font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+            font-family: 'Cinzel', serif;
+            -webkit-text-fill-color: initial;
+        }
+
+        .footer-ano {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.65rem, 2.2vw, 0.85rem);
+            color: rgba(255, 215, 0, 0.4);
+            -webkit-text-fill-color: initial;
+            letter-spacing: 2px;
+        }
+
+        .footer-emoji {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            -webkit-text-fill-color: initial;
+            animation: footerEmoji 2s ease-in-out infinite;
+        }
+
+        @keyframes footerEmoji {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+
+        .footer-badge {
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(0.45rem, 1.4vw, 0.6rem);
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            padding: 1px 10px;
+            color: rgba(255, 215, 0, 0.3);
+            -webkit-text-fill-color: initial;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-enlace {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+            color: #4d96ff;
+            text-decoration: none;
+            -webkit-text-fill-color: initial;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(77, 150, 255, 0.08);
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(77, 150, 255, 0.1);
+        }
+
+        .footer-enlace:hover {
+            background: rgba(77, 150, 255, 0.15);
+            border-color: rgba(77, 150, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .footer-enlace:active {
+            transform: scale(0.95);
+        }
+
+        /* Ajuste para que el footer no tape el contenido */
+        .ui-overlay {
+            padding-bottom: 55px;
+        }
+
+        .audio-controls {
+            bottom: 55px;
+        }
+
+        .toast {
+            bottom: 70px;
+        }
+
+        @media (max-width: 480px) {
+            .footer-premium {
+                padding: 5px 10px 4px 10px;
+            }
+            .footer-contenido {
+                gap: 4px 8px;
+            }
+            .ui-overlay {
+                padding-bottom: 48px;
+            }
+            .audio-controls {
+                bottom: 48px;
+            }
+            .toast {
+                bottom: 60px;
+            }
+            .footer-badge {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .footer-contenido {
+                gap: 2px 6px;
+            }
+            .footer-separador {
+                display: none;
+            }
+            .ui-overlay {
+                padding-bottom: 42px;
+            }
+            .audio-controls {
+                bottom: 42px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .footer-premium {
+                padding: 3px 12px 2px 12px;
+            }
+            .ui-overlay {
+                padding-bottom: 35px;
+            }
+            .audio-controls {
+                bottom: 35px;
+            }
+            .toast {
+                bottom: 45px;
+            }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -542,7 +715,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             .ui-overlay {
                 padding: 4px 6px 6px 6px;
@@ -670,16 +842,12 @@
 
 <div id="game-container">
     <!-- AUDIO: REPRODUCCIÓN AUTOMÁTICA -->
-    <!-- CAMBIA EL SRC POR TU CANCIÓN -->
     <audio id="musicaFondo" loop autoplay muted>
         <source src="quien.mp3" type="audio/mpeg">
-        <!-- Fallback para navegadores -->
         Tu navegador no soporta audio.
     </audio>
 
     <div class="fondo-lujo"></div>
-    
-    <!-- Partículas doradas -->
     <div class="particulas" id="particulas"></div>
 
     <div class="ui-overlay">
@@ -708,7 +876,6 @@
                 ¿Quién fue el primer rey de Israel?
             </div>
 
-            <!-- Opciones -->
             <div class="opciones-grid" id="opcionesGrid">
                 <button class="opcion-btn" data-index="0" onclick="seleccionarRespuesta(0)">
                     <span class="letra">A</span>
@@ -746,6 +913,23 @@
         <button onclick="reiniciarAudio()">🔄</button>
     </div>
 
+    <!-- ============================================ -->
+    <!-- FOOTER PREMIUM - ESTILO MILLONARIO -->
+    <!-- ============================================ -->
+    <footer class="footer-premium">
+        <div class="footer-contenido">
+            <span class="footer-emoji">✨</span>
+            <span class="footer-nombre">Jhon Dainer Arias</span>
+            <span class="footer-separador">✦</span>
+            <span class="footer-ano">2026</span>
+            <span class="footer-emoji" style="animation-delay: 0.5s;">✨</span>
+            <span class="footer-badge">🎮 Millonario Bíblico</span>
+            <a href="ahorcao.html" class="footer-enlace">
+                🔮 Ahorcado
+            </a>
+        </div>
+    </footer>
+
     <!-- Modal Final -->
     <div class="modal-overlay" id="modalFinal">
         <div class="modal-content">
@@ -755,31 +939,13 @@
             <div class="modal-premio" id="modalPremio">$1,000,000</div>
             <button class="btn-reiniciar" onclick="reiniciarJuego()">🔄 Jugar de nuevo</button>
             <br>
-            <!-- ENLACE AL JUEGO DE AHORCADO -->
-            <!-- Cambia esto: -->
-<a href="javascript:void(0)" class="btn-ahorcado" onclick="irAlAhorcado()">
-
-<!-- Por esto: -->
-<a href="ahorcao.html" class="btn-ahorcado">
-    <span class="icono">🔮</span> Jugar al Ahorcado Bíblico
-</a>
+            <a href="ahorcao.html" class="btn-ahorcado">
+                <span class="icono">🔮</span> Jugar al Ahorcado Bíblico
+            </a>
         </div>
     </div>
 </div>
 
-    <!-- FOOTER COLORIDO Y DIVERTIDO -->
-    <footer class="footer-colorido">
-        <p class="footer-texto">
-            <span class="emoji">✨</span>
-            <span>Jhon Dainer Arias</span>
-            <span class="separador">✦</span>
-            <span>2026</span>
-            <span class="emoji">✨</span>
-            <span style="font-size: clamp(0.5rem, 1.5vw, 0.7rem); -webkit-text-fill-color: initial; color: rgba(255,215,0,0.2); font-family: 'Nunito', sans-serif;">
-                🎮 biblionario
-            </span>
-        </p>
-    </footer>
 <script>
     // ============================================
     // 0. CONTROL DE AUDIO
@@ -788,10 +954,8 @@
     const audioElement = document.getElementById('musicaFondo');
     let audioActivo = true;
 
-    // Intentar reproducir automáticamente
     function intentarReproducirAudio() {
         audioElement.play().catch(() => {
-            // Algunos navegadores bloquean autoplay, intentamos con interacción
             document.addEventListener('click', function playOnClick() {
                 audioElement.play();
                 document.removeEventListener('click', playOnClick);
@@ -803,12 +967,10 @@
         });
     }
 
-    // Desmutear después de un momento (para que el usuario pueda activar)
     setTimeout(() => {
         audioElement.muted = false;
     }, 100);
 
-    // Intentar reproducir
     intentarReproducirAudio();
 
     function toggleAudio() {
@@ -837,28 +999,10 @@
     }
 
     // ============================================
-    // 1. ENLACE AL AHORCADO
-    // ============================================
-    
-    function irAlAhorcado() {
-        // Aquí puedes poner el enlace a tu juego de ahorcado
-        // Ejemplo: window.location.href = 'ahorcado-biblico.html';
-        mostrarToast('🔮 Abriendo el Ahorcado Bíblico...');
-        // Si tienes el juego en otro archivo, descomenta la línea de abajo:
-        // window.location.href = 'ahorcado-biblico.html';
-        
-        // Si es el mismo archivo, mostramos un mensaje
-        setTimeout(() => {
-            window.location.href = 'ahorcado-biblico.html';
-        }, 1000);
-    }
-
-    // ============================================
-    // 2. PREGUNTAS BÍBLICAS (DIFÍCILES)
+    // 2. PREGUNTAS BÍBLICAS
     // ============================================
     
     const PREGUNTAS = [
-        // Nivel 1-3 (Fáciles-Medias)
         {
             pregunta: "¿Quién fue el primer rey de Israel?",
             opciones: ["David", "Saúl", "Salomón", "Josué"],
@@ -877,7 +1021,6 @@
             correcta: 0,
             nivel: 1
         },
-        // Nivel 4-6 (Medias)
         {
             pregunta: "¿Qué profeta fue llevado al cielo en un carro de fuego?",
             opciones: ["Elías", "Eliseo", "Isaías", "Ezequiel"],
@@ -896,7 +1039,6 @@
             correcta: 0,
             nivel: 2
         },
-        // Nivel 7-9 (Difíciles)
         {
             pregunta: "¿Qué rey de Judá reinó por más tiempo?",
             opciones: ["Manasés", "Josías", "Ezequías", "Uzías"],
@@ -915,7 +1057,6 @@
             correcta: 0,
             nivel: 3
         },
-        // Nivel 10-12 (Muy difíciles)
         {
             pregunta: "¿Qué apóstol fue decapitado por Herodes Agripa?",
             opciones: ["Santiago", "Pedro", "Juan", "Felipe"],
@@ -934,7 +1075,6 @@
             correcta: 0,
             nivel: 4
         },
-        // Nivel 13-15 (Extremadamente difíciles)
         {
             pregunta: "¿Qué profeta escribió: 'No con ejército, ni con fuerza, sino con mi Espíritu'?",
             opciones: ["Zacarías", "Ageo", "Malaquías", "Joel"],
@@ -955,10 +1095,6 @@
         }
     ];
 
-    // ============================================
-    // 3. PREMIOS
-    // ============================================
-    
     const PREMIOS = [
         { valor: "$100", nivel: 1, asegurado: false },
         { valor: "$200", nivel: 1, asegurado: false },
@@ -976,10 +1112,6 @@
         { valor: "$1,000,000", nivel: 5, asegurado: true }
     ];
 
-    // ============================================
-    // 4. ESTADO DEL JUEGO
-    // ============================================
-    
     let preguntaActual = 0;
     let juegoActivo = true;
     let esperandoSiguiente = false;
@@ -989,15 +1121,9 @@
         'publico': true,
         'amigo': true
     };
-    let preguntasUsadas = [];
     let preguntasNivel = [];
 
-    // ============================================
-    // 5. ELEMENTOS DOM
-    // ============================================
-    
     const preguntaTexto = document.getElementById('preguntaTexto');
-    const opcionesGrid = document.getElementById('opcionesGrid');
     const opcionBtns = document.querySelectorAll('.opcion-btn');
     const preguntaNumero = document.getElementById('preguntaNumero');
     const premioActual = document.getElementById('premioActual');
@@ -1010,10 +1136,6 @@
     const toast = document.getElementById('toast');
     const btnPremios = document.getElementById('btnPremios');
 
-    // ============================================
-    // 6. FUNCIONES PRINCIPALES
-    // ============================================
-    
     function iniciarJuego() {
         preguntaActual = 0;
         juegoActivo = true;
@@ -1024,7 +1146,6 @@
             'publico': true,
             'amigo': true
         };
-        preguntasUsadas = [];
         actualizarComodinesUI();
         generarPreguntasNivel();
         mostrarPregunta();
@@ -1144,10 +1265,6 @@
         mostrarModal('🎉', '¡ERES MILLONARIO!', 'Has respondido todas las preguntas correctamente', '$1,000,000');
     }
 
-    // ============================================
-    // 7. COMODINES
-    // ============================================
-    
     function usarComodin(tipo) {
         if (!juegoActivo || esperandoSiguiente || !comodines[tipo]) return;
         
@@ -1250,10 +1367,6 @@
         });
     }
 
-    // ============================================
-    // 8. PREMIOS UI
-    // ============================================
-    
     function actualizarPremiosUI() {
         const lista = document.getElementById('premiosLista');
         lista.innerHTML = '';
@@ -1283,10 +1396,6 @@
         }
     }
 
-    // ============================================
-    // 9. MODAL
-    // ============================================
-    
     function mostrarModal(icono, titulo, subtitulo, premio) {
         modalIcono.textContent = icono;
         modalTitulo.textContent = titulo;
@@ -1297,7 +1406,6 @@
 
     function reiniciarJuego() {
         iniciarJuego();
-        // Reiniciar audio si está pausado
         if (audioElement.paused) {
             audioElement.play();
             audioElement.muted = false;
@@ -1305,10 +1413,6 @@
         }
     }
 
-    // ============================================
-    // 10. TOAST
-    // ============================================
-    
     function mostrarToast(mensaje) {
         toast.textContent = mensaje;
         toast.classList.add('show');
@@ -1318,10 +1422,6 @@
         }, 3000);
     }
 
-    // ============================================
-    // 11. PARTÍCULAS CSS
-    // ============================================
-    
     function crearParticulas() {
         const container = document.getElementById('particulas');
         for (let i = 0; i < 30; i++) {
@@ -1337,10 +1437,6 @@
     }
     crearParticulas();
 
-    // ============================================
-    // 12. INICIO
-    // ============================================
-    
     iniciarJuego();
 
     console.log('🎯 ¿Quién quiere ser millonario? - Edición Bíblica');
